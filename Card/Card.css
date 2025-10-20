@@ -1,0 +1,113 @@
+/**
+ * 
+ * @author yum-cutty https://github.com/yum-cutty
+ *
+ * color for card content text and card botton shadow
+ * @dev note: will be changed by TS
+ */
+
+:root { --card-color: green;         /* <--- will be changed TS */ }
+
+.alert__container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/*//////////////////////////////////////////////////////////////
+                           CONTAINER
+//////////////////////////////////////////////////////////////*/
+
+.alert__box {
+    padding: 1.5rem 2.5rem;
+    background: white;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border-radius: 10px;
+    z-index: 1000000000000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInAndOut 3.3s ease forwards;
+}
+
+/**
+ * 
+ * 0% - 9% of 3.3 second: fades in
+ * 9% - 90% of 3.3 second: stays visible for about 3 seconds
+ * 90% - 100% of 3.3 second: fades out
+ *
+ *
+ *
+ */
+@keyframes fadeInAndOut {
+    0% { 
+        opacity: 0; 
+        transform: translateX(20px); 
+    }
+    10% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+    85% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateX(20px); 
+    }
+}
+
+
+/* the bottom shadow loading bar here */
+
+.alert__box::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%; /* Start with full width */
+    height: 10px;
+    background: var(--card-color);
+    border-radius: 0 0 10px 10px; 
+    animation: loadingBar 3s linear forwards; /* bottom loading bar */
+}
+
+@keyframes loadingBar {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/*//////////////////////////////////////////////////////////////
+                            CONTENT
+//////////////////////////////////////////////////////////////*/
+
+.alert {
+    display: flex;
+    align-items: anchor-center;
+    gap: 0.6rem;
+}
+
+.alert.success, .alert.fail {
+    min-width: 150%;
+    position: relative;
+    right: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 800;
+    color: var(--card-color);
+}
+
+/*//////////////////////////////////////////////////////////////
+                           LEFT ICON
+//////////////////////////////////////////////////////////////*/
+
+.alert.success i, .alert.fail i {
+    font-size: 2rem;
+}
+
+/*//////////////////////////////////////////////////////////////
+                           HIDEN THEM
+//////////////////////////////////////////////////////////////*/
+
+.alert__box.hidden, .alert.success.hidden, .alert.fail.hidden {
+    display: none;
+}
